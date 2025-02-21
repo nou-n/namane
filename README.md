@@ -34,12 +34,10 @@ await client.login({
    {
        success: true,
        message: "정상 처리되었습니다.",
-       data: [
-           {
-               userNo: "2024101...",
-               userName: "UserName"
-           }
-       ]
+       data: {
+           userNo: "2024101...",
+           userName: "UserName"
+       }
    }
    ```
 - 실패 시
