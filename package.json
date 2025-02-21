@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "axios": "^1.7.9",
+    "tink-crypto": "^0.1.1"
+  },
+  "name": "namane",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
