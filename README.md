@@ -11,15 +11,16 @@ bun install
 
 ## Usage
 
-### 클라이언트 생성
+<details><summary><h3>클라이언트 생성</h3></summary>
 
 ```typescript
 import Namane from ".";
 
 const client = new Namane();
 ```
+</details>
 
-### 로그인
+<details><summary><h3>로그인</h3></summary>
 
 ```typescript
 await client.login({
@@ -47,8 +48,9 @@ await client.login({
        message: "실패 사유"
    }
    ```
+</details>
 
-### 카드 조회
+<details><summary><h3>카드 조회</h3></summary>
 
 보유 중인 카드를 가져옵니다.
 
@@ -79,8 +81,9 @@ await client.fetchCards();
        message: "실패 사유"
    }
    ```
+</details>
 
-### 페이 잔액 이용내역 조회
+<details><summary><h3>페이 잔액 이용내역 조회</h3></summary>
 
 페이 잔액 이용내역을 가져옵니다. 최대 조회 기간은 92일입니다.
 
@@ -128,8 +131,9 @@ await client.fetchTransactions({
        message: "실패 사유"
    }
    ```
+</details>
 
-### 계좌 예금주 조회
+<details><summary><h3>계좌 예금주 조회</h3></summary>
 
 계좌 번호의 예금주를 조회합니다.
 
@@ -164,3 +168,4 @@ await client.fetchAccount({
        message: "실패 사유"
    }
    ```
+</details>
