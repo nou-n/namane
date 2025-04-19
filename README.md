@@ -128,3 +128,39 @@ await client.fetchTransactions({
        message: "실패 사유"
    }
    ```
+
+### 계좌 예금주 조회
+
+계좌 번호의 예금주를 조회합니다.
+
+```typescript
+await client.fetchAccount({
+    bankCode: "금융결제원 공식 코드 (e.g., 089)",
+    accountNo: "1234...",
+    encryptedCardNo: "3OXlAnvi...",
+    amount: 1000
+});
+```
+
+#### 반환
+- 성공 시
+   ```typescript
+   {
+       success: true,
+       message: "정상 처리되었습니다.",
+       data: [
+           {
+               name: "홍길동",
+               amount: 1000,
+               accountNo: "1234..."
+           }
+       ]
+   }
+   ```
+- 실패 시
+   ```typescript
+   {
+       success: false,
+       message: "실패 사유"
+   }
+   ```
