@@ -16,6 +16,46 @@ export default class Namane {
         this.cookie = `KHANUSER=${this.generateKhanUser()}`;
     }
 
+    async fetchAccount(data: { encryptedCardNo: string, amount: number, bankCode: string, accountNo: string }): Promise<{
+        success: boolean,
+        message: string,
+        data?: {
+            name: string,
+            amount: number,
+            accountNo: string
+        }
+    }> {
+        if(!this.authorization || !this.userNo)
+            throw new Error("Unauthorized.");
+
+        if(data.amount < 1000)
+            throw new Error("Minimum amount is 1000.");
+
+        const { data: response } = await this.sendPostRequest(BaseUrl.API, "fcsefn08u0", {
+            usrNo: this.userNo,
+            bkcd: `1${data.bankCode}`, // 금융결제원 공식 코드 기준
+            acno: data.accountNo.replace(/\D/g, ""),
+            trAmt: data.amount.toString(),
+            iapCrdNoEcyVl: data.encryptedCardNo
+        });
+
+        if (response.rspHdr.rc != "0")
+            return {
+                success: false,
+                message: response.rspHdr.splmMsg
+            };
+
+        return {
+            success: true,
+            message: response.rspHdr.splmMsg,
+            data: {
+                name: response.rspBody.dpwnNm,
+                amount: parseInt(response.rspBody.trAmt),
+                accountNo: response.rspBody.acno
+            }
+        };
+    }
+
     async fetchTransactions(data: { encryptedCardNo: string, startDate: DateInput, endDate: DateInput }): Promise<{ 
         success: Boolean,
         message: string,
@@ -148,8 +188,8 @@ export default class Namane {
             usrSvcId: user.id,
             pwdCalVl: "6",
             mblPgmDscd: "A01",
-            mblPgmVrsNo: 4194606,
-            mblPgmVrsNm: "4.0.3"
+            mblPgmVrsNo: 4194606, // com.iaurora.cardforme.BuildConfig.VERSION_CODE
+            mblPgmVrsNm: "4.0.3" // com.iaurora.cardforme.BuildConfig.VERSION_NAME
         }, true);
 
         if (response.rspHdr.rc != "0")
