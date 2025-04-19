@@ -6,7 +6,7 @@ import { type DateInput, BaseUrl, TransactionType } from "./types";
 tink.aead.register();
 
 export default class Namane {
-    private authorization: string= "";
+    private authorization: string = "";
     private cookie: string = "";
     private userAgent: string = "okhttp/4.9.2";
 
